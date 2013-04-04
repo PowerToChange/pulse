@@ -25,3 +25,11 @@ config.action_controller.perform_caching             = true
 # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2506-models-are-not-loaded-in-migrations-when-configthreadsafe-is-set
 #config.threadsafe! unless (File.basename($0) == "rake" && !ARGV.grep(/db:/).empty?)
 
+ActionMailer::Base.delivery_method = :smtp
+
+ActionMailer::Base.smtp_settings = {
+  :address => 'localhost',
+  :port => 2525,
+  :domain => ''
+}
+
