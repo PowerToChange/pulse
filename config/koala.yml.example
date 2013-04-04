@@ -1,6 +1,6 @@
 # Copy this to config/koala.yml
 
-dev:
+development:
   app_id:
   secret_key:
   canvas_url:
