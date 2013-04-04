@@ -1,27 +1,12 @@
-def stage?() %w(emu staging).include?(ENV['target']) end
-def prod?() ENV['target'] == 'prod' end
-
-set :application, 'pulse'
+set :keep_releases, '2'
 set :user, 'deploy'
 set :use_sudo, false
-set :host, prod? ? 'pat.powertochange.org' : 'emu.powertochange.com'
-set :keep_releases, 3
-
 set :scm, 'git'
-set :repository, "git://github.com/andrewroth/#{application}.git"
-set :branch, if prod? then 'master' elsif stage? then 'staging' end
+set :repository, "git://github.com/PowerToChange/pulse.git"
 set :deploy_via, :checkout
-path = if stage?
-         'emu.powertochange.com'
-       elsif prod?
-         'pulse.powertochange.com'
-       end
-set :deploy_to, "/var/www/#{path}"
 set :git_enable_submodules, false
 set :git_shallow_clone, true
 
-
-server host, :app, :web, :db, :primary => true
 after "deploy", "deploy:cleanup"
 
 def link_shared(p, o = {})
@@ -30,6 +15,21 @@ def link_shared(p, o = {})
   end
 
   run "ln -s #{shared_path}/#{p} #{release_path}/#{p}"
+end
+
+task :production do
+  role :app, 'pulse.powertochange.com'
+  set :application, 'pulse'
+  set :title, 'pulse'
+  set :branch, 'master'
+  set :deploy_to, "/var/www/pulse.powertochange.com"
+end
+
+task :staging do
+  role :app, 'emu.powertochange.com'
+  set :application, 'emu'
+  set :branch, 'staging'
+  set :deploy_to, '/var/www/emu.powertochange.com'
 end
 
 before :"deploy:create_symlink", :"deploy:before_symlink"
@@ -48,8 +48,7 @@ deploy.task :before_symlink do
   link_shared 'config/koala.yml', :overwrite => true
   link_shared 'config/initializers/eventbright.rb', :overwrite => true
 
-  profile_pic_prefix = if stage? then 'emu_stage' elsif prod? then 'emu' end
-  link_shared "public/#{profile_pic_prefix}.profile_pictures"
+  link_shared "public/emu.profile_pictures"
 
   run "cd #{release_path} && git checkout -b #{fetch(:branch)} origin/#{fetch(:branch)}"
   run "cd #{release_path} && git submodule init"
@@ -58,7 +57,7 @@ end
 
 after :"deploy:create_symlink", :"deploy:after_symlink"
 deploy.task :after_symlink do
-  run "ruby /etc/screen.d/dj_#{if stage? then 'emu' else 'pulse' end}.rb"
+  run "ruby /etc/screen.d/dj_#{fetch(:application)}.rb"
 end
 
 namespace :deploy do
