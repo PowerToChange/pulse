@@ -1,9 +1,17 @@
 defaults: &defaults
   adapter: mysql
   username: root
-  password: 
+  password:
   host: localhost
   reconnect: true
+
+development:
+  database: pulse
+  <<: *defaults
+
+staging:
+  database: emu
+  <<: *defaults
 
 production:
   database: pulse
