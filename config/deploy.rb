@@ -72,12 +72,12 @@ namespace :deploy do
   end
 
   namespace :views do
-    desc "runs cmt:views:rebuild remotely"
+    desc "runs pulse:views:rebuild remotely"
     task :rebuild do
       rake = fetch(:rake, "rake")
       rails_env = fetch(:rails_env, "production")
 
-      run "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} cmt:views:rebuild"
+      run "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} pulse:views:rebuild"
     end
   end
 end

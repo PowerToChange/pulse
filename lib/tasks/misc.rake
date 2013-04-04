@@ -1,7 +1,11 @@
 require 'csv'
 require 'yaml'
 
-namespace :cmt do
+namespace :pulse do
+  task :deliver_emails_working => :environment do
+    Mailers::EmailMailer.send_later(:deliver_emails_working, "andrewroth@gmail.com, john.homenuke@c4c.ca")
+  end
+
   task :cleanup_student_involvements => :environment do
     student_role_ids = Ministry.first.student_role_ids
     staff_role_ids = Ministry.first.staff_role_ids
@@ -543,11 +547,5 @@ def escape_string(str)
       else "\\"+$1
       end
     end
-  end
-end
-
-namespace :pulse do
-  task :deliver_emails_working => :environment do
-    Mailers::EmailMailer.send_later(:deliver_emails_working, "andrewroth@gmail.com, john.homenuke@c4c.ca")
   end
 end
