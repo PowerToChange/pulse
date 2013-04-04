@@ -1,0 +1,14 @@
+defaults: &defaults
+  adapter: mysql
+  username: root
+  password: 
+  host: localhost
+  reconnect: true
+
+production:
+  database: pulse
+  <<: *defaults
+
+pat:
+  database: pat
+  <<: *defaults
