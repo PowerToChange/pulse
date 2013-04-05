@@ -1,6 +1,6 @@
 [submodule "vendor/plugins/p2c_rails_common"]
 	path = vendor/plugins/p2c_rails_common
-	url = https://github.com/PowerToChange/p2c_rails_common.git
+	url = git://github.com/PowerToChange/p2c_rails_common.git
 [submodule "vendor/plugins/ccc_rubycas_client"]
 	path = vendor/plugins/ccc_rubycas_client
 	url = git://github.com/twinge/ccc_rubycas_client.git
