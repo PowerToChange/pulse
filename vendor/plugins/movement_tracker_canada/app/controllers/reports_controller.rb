@@ -132,23 +132,23 @@ class ReportsController < ApplicationController
 
   def get_current_campus_id
     unless @current_campus_id
-      campus_found = nil
-      campus_count = {}
-      last_3_campuses = WeeklyReport.find(:all, :include => [:week], :conditions => {:staff_id => get_current_staff_id}, :limit => 3, :order => "#{Week.__(:end_date)} DESC").collect{|wr| wr[:campus_id]}
-      last_3_campuses.each do |c|
-        campus_count[c] ||= 0
-        campus_count[c] += 1
-      end
-
-      last_3_campuses.each do |cf|
-        campus_found = cf if campus_found.nil? || campus_count[cf] >= campus_count[campus_found]
-      end
-      @current_campus_id ||= campus_found
+#      campus_found = nil
+#      campus_count = {}
+#      last_3_campuses = MonthlyReport.find(:all, :include => [:month], :conditions => {:staff_id => get_current_staff_id}, :limit => 3, :order => "#{Week.__(:end_date)} DESC").collect{|wr| wr[:campus_id]}
+#      last_3_campuses.each do |c|
+#        campus_count[c] ||= 0
+#        campus_count[c] += 1
+#      end
+#
+#      last_3_campuses.each do |cf|
+#        campus_found = cf if campus_found.nil? || campus_count[cf] >= campus_count[campus_found]
+#      end
+#      @current_campus_id ||= campus_found
 
       # if person's most recently submitted stats are at a campus they no longer have involvements at
-      if @current_campus_id.nil? || @my.ministries.index(Campus.find(@current_campus_id).derive_ministry).nil?
+#      if @current_campus_id.nil? || @my.ministries.index(Campus.find(@current_campus_id).derive_ministry).nil?
         @current_campus_id = setup_dropdown_campuses_with_new_report_permission.first.id
-      end
+#      end
 
     end
     @current_campus_id
