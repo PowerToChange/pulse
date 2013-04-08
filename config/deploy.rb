@@ -1,4 +1,4 @@
-set :keep_releases, '2'
+set :keep_releases, '20'
 set :user, 'deploy'
 set :use_sudo, false
 set :scm, 'git'
@@ -18,7 +18,7 @@ def link_shared(p, o = {})
 end
 
 task :production do
-  role :app, 'pulse.powertochange.com'
+  role :app, 'pat.powertochange.org'
   set :application, 'pulse'
   set :title, 'pulse'
   set :branch, 'master'
@@ -50,7 +50,6 @@ deploy.task :before_symlink do
 
   link_shared "public/emu.profile_pictures"
 
-  run "cd #{release_path} && git checkout -b #{fetch(:branch)} origin/#{fetch(:branch)}"
   run "cd #{release_path} && git submodule init"
   run "cd #{release_path} && git submodule update"
 end
