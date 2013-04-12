@@ -7,7 +7,7 @@ namespace :db do
     user = db_config[Rails.env]['username']
     password = db_config[Rails.env]['password']
     host = db_config[Rails.env]['host']
-    database = ENV['db'] || db_config[Rails.env]['database']
+    database = ENV['db'].try(:split, ',') || db_config[Rails.env]['database']
     
     File.mkdir(Rails.root.join("tmp")) unless File.directory?(Rails.root.join("tmp"))
     filename = Rails.root.join("tmp/dump-#{Rails.env}-#{Time.now.strftime('%Y-%m-%d')}.sql")
@@ -32,9 +32,9 @@ namespace :db do
   task :fix => :environment do
     db_config = Rails.configuration.database_configuration
     database = db_config[Rails.env]['database']
-    tables = ENV['tables'].split(',') || ActiveRecord::Base.connection.tables
+    tables = ENV['tables'].try(:split, ',') || ActiveRecord::Base.connection.tables
     tables.each do |table|
-      fields = ENV['fields'].split(',') || ActiveRecord::Base.connection.select_values("SHOW FIELDS FROM #{table}")
+      fields = ENV['fields'].try(:split, ',') || ActiveRecord::Base.connection.select_values("SHOW FIELDS FROM #{table}")
       fields.each do |field|
         field_type = ActiveRecord::Base.connection.select_value("SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = '#{database}' AND table_name = '#{table}' AND COLUMN_NAME = '#{field}'");
         next unless field_type == "varchar"
@@ -42,18 +42,18 @@ namespace :db do
         fix_encoding_sql = "ALTER TABLE `#{table}` DEFAULT CHARSET=utf8, MODIFY COLUMN `#{field}` varchar(#{field_length}) CHARACTER SET utf8;"
         ActiveRecord::Base.connection.execute(fix_encoding_sql)
         %|
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â©','é');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â«','ë');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¨','è');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã¢â‚¬Â°','É');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â´','ô');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¡','á');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¤','ä');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¸','ø');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¼','ü');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â¼³','ü');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â³','ó');
-update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÆ’Ã‚Â','í');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ©','é');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ«','ë');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¨','è');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'Ãƒâ€°','É');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ´','ô');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¡','á');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¤','ä');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¸','ø');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¼','ü');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ¼³','ü');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ³','ó');
+update `#{table}` set `#{field}` = replace(`#{field}` ,'ÃƒÂ','í');
 |.split("\n").each do |cmd|
           if cmd.present?
             puts cmd
