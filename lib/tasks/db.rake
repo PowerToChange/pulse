@@ -14,7 +14,10 @@ namespace :db do
     puts "Dumping #{database} to #{filename}"
     
     command = 'mysqldump'
-    command += ' --add-drop-table'
+    command += ' --extended-insert'
+    command += ' --skip-lock-tables'
+    command += ' --skip-add-locks'
+    command += ' --skip-disable-keys'
     command += " -u #{user}"
     command += " -h #{host}" unless host.blank?
     command += " -p#{password}" unless password.blank?
