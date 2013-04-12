@@ -4776,6 +4776,10 @@ table.dataTable tr:hover td {
   background-color: rgba(245, 245, 255, 0.5);
 }
 
+.snap-right {
+  text-align: right !important;
+}
+
 .project_campus_stats table, #all_projects table {
   width: 90%;
   margin: 20px;

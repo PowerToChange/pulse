@@ -3,94 +3,114 @@
   <% if @campuses %>
     <% campus_ids = @campuses.collect(&:id) %>
 
-    <h2>
+    <h1>
       National Snapshot Report
-    </h2>
+    </h1><br>
 
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        $('#sortable').dataTable( {
+          "aaSorting": [[ 0, "asc" ]],
+          "bJQueryUI": true,
+          "sPaginationType": "full_numbers"
+        } );
+      } );
+
+      $(document).ready(function() {
+        $('#sortable2').dataTable( {
+          "aaSorting": [[ 0, "asc" ]],
+          "bJQueryUI": true,
+          "sPaginationType": "full_numbers"
+        } );
+      } );
+    </script>
+
+    <div>
+
+      <h2>Drill-down by Priority</h2>
+      <table id="sortable" cellpadding="0" cellspacing="0">
+        <thead class="center">
+          <tr>
+            <th>School</th>
+            <th>Total</th>
+            <th>Hot</th>
+            <th>Medium</th>
+            <th>Mild</th>
+            <th>Not Interested</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @campuses.each do |campus| %>
+            <tr>
+              <td><%= campus.desc %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => [contact_search_options[:priority][:options][1], contact_search_options[:priority][:options][2], contact_search_options[:priority][:options][3], contact_search_options[:priority][:options][4]]}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][1]}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][2]}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][3]}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][4]}).size %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Totals</td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => [contact_search_options[:priority][:options][1], contact_search_options[:priority][:options][2], contact_search_options[:priority][:options][3], contact_search_options[:priority][:options][4]]}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][1]}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][2]}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][3]}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][4]}).size %></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <br>
+      <div class="clear"></div>
+      <br>
+
+      <h2>Follow-up Progress</h2>
+      <table id="sortable2" cellpadding="0" cellspacing="0">
+        <thead class="center">
+          <tr>
+            <th>School</th>
+            <th>Completed</th>
+            <th>In Progress</th>
+            <th>Uncontacted</th>
+            <th>Attempted</th>
+            <th>Contacted</th>
+            <th>Do Not Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @campuses.each do |campus| %>
+            <tr>
+              <td><%= campus.desc %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 2}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => [0, 1, 4]}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 0}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 1}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 4}).size %></td>
+              <td class="snap-right"><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 3}).size %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Totals</td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 2}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => [0, 1, 4]}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 0}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 1}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 4}).size %></td>
+            <td class="snap-right"><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 3}).size %></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <br>
+      <div class="clear"></div>
+      <br>
+    </div>
     <div id="results" class="contacts_report">
-
-      <table class="statsTable statsReportTabContainer">
-        <thead>
-          <tr>
-            <th colspan="7" class="statsTitle"><p>Drill-down by Priority</p></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>&nbsp;</td>
-            <td class="statsTableTitle">Total</td>
-            <td class="statsTableTitle">Hot</td>
-            <td class="statsTableTitle">Medium</td>
-            <td class="statsTableTitle">Mild</td>
-            <td class="statsTableTitle">Not Interested</td>
-          </tr>
-          <% @campuses.each do |campus| %>
-            <tr class="<%= cycle('highlight', 'nohighlight') %>">
-              <td class="statsTableTitle"><%= campus.desc %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => [contact_search_options[:priority][:options][1], contact_search_options[:priority][:options][2], contact_search_options[:priority][:options][3], contact_search_options[:priority][:options][4]]}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][1]}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][2]}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][3]}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:priority => contact_search_options[:priority][:options][4]}).size %></td>
-            </tr>
-          <% end %>
-          <tr>
-            <td>Totals</td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => [contact_search_options[:priority][:options][1], contact_search_options[:priority][:options][2], contact_search_options[:priority][:options][3], contact_search_options[:priority][:options][4]]}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][1]}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][2]}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][3]}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :priority => contact_search_options[:priority][:options][4]}).size %></td>
-          </tr>
-        </tbody>  
-      </table>
-
-      <br>
-      <div class="clear"></div>
-      <br>
-
-      <table class="statsTable statsReportTabContainer">
-        <thead>
-          <tr>
-            <th colspan="7" class="statsTitle"><p>Follow-up Progress</p></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>&nbsp;</td>
-            <td class="statsTableTitle">Completed</td>
-            <td class="statsTableTitle">In Progress</td>
-            <td class="statsTableTitle">Uncontacted</td>
-            <td class="statsTableTitle">Attempted</td>
-            <td class="statsTableTitle">Contacted</td>
-            <td class="statsTableTitle">Do Not Contact</td>
-          </tr>
-          <% @campuses.each do |campus| %>
-            <tr class="<%= cycle('highlight', 'nohighlight') %>">
-              <td class="statsTableTitle"><%= campus.desc %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 2}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => [0, 1, 4]}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 0}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 1}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 4}).size %></td>
-              <td><%= number_with_delimiter campus.survey_contacts.all(:conditions => {:status => 3}).size %></td>
-            </tr>
-          <% end %>
-          <tr>
-            <td>Totals</td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 2}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => [0, 1, 4]}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 0}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 1}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 4}).size %></td>
-            <td><%= number_with_delimiter SurveyContact.all(:conditions => {:campus_id => campus_ids, :status => 3}).size %></td>
-          </tr>
-        </tbody>  
-      </table>
-
-      <br>
-      <div class="clear"></div>
-      <br>
 
       <table class="statsTable statsReportTabContainer">
         <thead>
