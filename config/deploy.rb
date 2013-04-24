@@ -95,7 +95,7 @@ namespace :db do
     db_config = YAML::load(File.open("config/database.yml"))
     user = db_config[rails_env]['username']
     password = db_config[rails_env]['password']
-    host = db_config[rails_env]['host']
+    host = db_config[rails_env]['host'] || 'localhost'
     local_db = ENV['db'] ? ENV['db'] : db_config[rails_env]['database']
     get remote_file, File.basename(remote_file)
 
