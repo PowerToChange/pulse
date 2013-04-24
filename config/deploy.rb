@@ -101,8 +101,7 @@ namespace :db do
 
     puts "This will recreate your #{local_db} database.  Are you sure? (y/n)"
     if STDIN.gets.chomp.downcase == 'y'
-      puts "LOAD HERE", user, password, host, local_db
-      system "cat #{File.basename(remote_file)} | mysql --user #{user} -p#{password} --host #{host} #{local_db}"
+      run_locally "cat #{File.basename(remote_file)} | mysql --user #{user} #{"-p#{password}" if password} --host #{host} #{local_db}"
     end
   end
 end
