@@ -97,12 +97,12 @@ namespace :db do
     password = db_config[rails_env]['password']
     host = db_config[rails_env]['host']
     local_db = ENV['db'] ? ENV['db'] : db_config[rails_env]['database']
-    get remote_file
+    get remote_file, File.basename(remote_file)
 
     puts "This will recreate your #{local_db} database.  Are you sure? (y/n)"
     if STDIN.gets.chomp.downcase == 'y'
       puts "LOAD HERE", user, password, host, local_db
-      system "cat #{Dir.filename(remote_file)} | mysql --user #{user} -p#{password} --host #{host} #{local_db}"
+      system "cat #{File.basename(remote_file)} | mysql --user #{user} -p#{password} --host #{host} #{local_db}"
     end
   end
 end
