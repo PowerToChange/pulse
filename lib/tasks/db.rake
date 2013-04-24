@@ -17,7 +17,7 @@ namespace :db do
     command += ' --extended-insert'
     command += ' --skip-lock-tables'
     command += ' --skip-add-locks'
-    command += ' --skip-disable-keys'
+    command += ' --disable-keys'
     command += " -u #{user}"
     command += " -h #{host}" unless host.blank?
     command += " -p#{password}" unless password.blank?
