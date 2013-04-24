@@ -7,7 +7,7 @@ namespace :db do
     user = db_config[Rails.env]['username']
     password = db_config[Rails.env]['password']
     host = db_config[Rails.env]['host']
-    database = ENV['db'].try(:split, ',') || db_config[Rails.env]['database']
+    database = ENV['db'].present? ? ENV['db'] : db_config[Rails.env]['database']
     
     File.mkdir(Rails.root.join("tmp")) unless File.directory?(Rails.root.join("tmp"))
     filename = Rails.root.join("tmp/dump-#{database}-#{Time.now.strftime('%Y-%m-%d')}.sql")

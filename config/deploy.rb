@@ -19,6 +19,7 @@ end
 
 task :production do
   role :app, 'pat.powertochange.org'
+  set :rails_env, 'production'
   set :application, 'pulse'
   set :title, 'pulse'
   set :branch, 'master'
@@ -27,6 +28,7 @@ end
 
 task :staging do
   role :app, 'emu.powertochange.com'
+  set :rails_env, 'staging'
   set :application, 'emu'
   set :branch, 'staging'
   set :deploy_to, '/var/www/emu.powertochange.com'
@@ -76,6 +78,31 @@ namespace :deploy do
       rails_env = fetch(:rails_env, "production")
 
       run "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} pulse:views:rebuild"
+    end
+  end
+end
+
+namespace :db do
+  task :pull do
+    rake = fetch(:rake, "rake")
+    rails_env = fetch(:rails_env, "production")
+    out = capture "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} db:dump #{"remotedb=#{ENV['remotedb']}" if ENV['remotedb']}"
+    puts "output: #{out}"
+    out =~ /Dumping (.*) to (.*)/
+    remote_db = $1
+    remote_file = $2
+
+    db_config = YAML::load(File.open("config/database.yml"))
+    user = db_config[rails_env]['username']
+    password = db_config[rails_env]['password']
+    host = db_config[rails_env]['host']
+    local_db = ENV['db'] ? ENV['db'] : db_config[rails_env]['database']
+    get remote_file
+
+    puts "This will recreate your #{local_db} database.  Are you sure? (y/n)"
+    if STDIN.gets.chomp.downcase == 'y'
+      puts "LOAD HERE", user, password, host, local_db
+      system "cat #{Dir.filename(remote_file)} | mysql --user #{user} -p#{password} --host #{host} #{local_db}"
     end
   end
 end
