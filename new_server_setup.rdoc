@@ -1,0 +1,106 @@
+== Log of New Server Setup
+May 20132013
+
+This is a _rough_ log of setting up a new Debian 7 server.
+
+== upgrade squeeze to wheezy if necessary
+http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
+
+*add user deploy to sudo group and use it instead of root for here on*
+    adduser deploy
+    adduser deploy sudo
+
+*update system, you might want to do-release-upgrade here*
+    sudo apt-get update
+    sudo apt-get upgrade
+
+*set correct time*
+    sudo dpkg-reconfigure tzdata
+    sudo ntpdate pool.ntp.org
+    sudo apt-get install vim
+    sudo apt-get install htop
+
+*apache*
+    sudo apt-get install apache2 apache2-prefork-dev autoconf bison build-essential curl git-core imagemagick mysql-client mysql-common mysql-server openssl php5
+
+    sudo bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
+    sudo adduser h3d rvm
+    sudo adduser deploy rvm
+    source /etc/profile.d/rvm.sh
+
+*logout and back in for rvm*
+
+    sudo bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
+    sudo adduser deploy rvm
+    source /etc/profile.d/rvm.sh
+
+*logout and back in for rvm*
+
+TODO:
+
+*setup apache sites*
+    sudo vim /etc/apache2/sites-available/dev.creativecrash
+    sudo a2ensite dev.creativecrash
+    sudo a2dissite default
+
+*install apache mods*
+    sudo a2enmod expires
+    sudo a2enmod headers
+    sudo a2enmod proxy
+    sudo a2enmod ssl
+    sudo apt-get install libapache2-mod-xsendfile
+    sudo apt-get install libapache2-mod-php5
+    sudo apt-get install libapache2-mod-proxy-html
+
+    sudo service apache2 restart
+
+*install rubygems*
+    http://rubyforge.org/frs/?group_id=126&release_id=47112
+
+*install passenger*
+
+*pulse gems*
+    rvm gemset create pulse
+    rvm --rvmrc --create ruby-1.8.7-p371@pulse --create
+
+    gem install rails --version 2.3.18
+    gem install json_pure --version 1.7.7
+    gem install fastercsv --version 1.5.3
+    gem install rubyzip --version 0.9.4
+    gem install roo --version 1.3.11
+    gem install mechanize --version 1.0.0
+    gem install erubis
+    gem install aws-s3 --version 0.9.4
+    gem install jrails --version 0.6.0
+    gem install spreadsheet --version 0.6.4.1
+    gem install liquid --version 2.2.2
+    gem install will_paginate --version 2.3.15
+    gem install daemons --version 1.1.0
+    gem install httparty --version 0.6.1
+    gem install tzinfo --version 0.3.23
+    gem install autometal-geoip --version 0.4.0
+    gem install http_accept_language --version 1.0.0
+    gem install i18n --version 0.6.1
+    gem install mysql2 --version 0.2.7
+    gem install newrelic_rpm --version 3.5.3.25
+    gem install hpricot --version 0.8.3
+    gem install chronic --version 0.3.0
+    gem install json --version 1.7.7
+    gem install aws-s3 --version 0.6.2
+    gem install mysql --version 2.8.1
+    gem install mysql2 --version 0.2.7
+    gem install capistrano --version 2.5.19
+
+*pat gems*
+
+    rvm install ree-1.8.7-2012.02
+    rvm --rvmrc --create ree-1.8.7@pat --create
+
+    gem install rails --version 2.3.18
+    gem install RedCloth --version 4.2.2
+    gem install hpricot --version 0.8.3
+    gem install sass --version 3.2.1
+    gem install mysql2 --version 0.2.7
+    gem install mysql --version 2.8.1
+    gem install i18n --version 0.6.1
+
