@@ -36,6 +36,5 @@ public/utopian_pulse_test.imports
 .bundle
 public/stylesheets/cache/*
 tmp/*
-.rvmrc
 .settings
 
