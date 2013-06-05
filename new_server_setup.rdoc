@@ -56,7 +56,9 @@ TODO:
     rvmsudo passenger-install-apache2-module
 
 *pulse gems*
-    rvm --rvmrc --create ruby-1.8.7-p371@pulse --create
+
+    rvm install ree-1.8.7-2012.02
+    rvm --rvmrc --create ree-1.8.7@pulse --create
 
     gem install rails --version 2.3.18
     gem install json_pure --version 1.7.7
@@ -87,6 +89,7 @@ TODO:
 
 *pat gems*
 
+    rvm install ree-1.8.7-2012.02
     rvm --rvmrc --create ree-1.8.7@pat --create
 
     gem install rails --version 2.3.18
@@ -103,4 +106,8 @@ TODO:
     /etc/apache2/sites-enabled/emu.powertochange.com
     
     Had to remove RailsAutoDetect, replace it with PassengerEnabled, set RubyInterpreter to the rvm ruby path
+
+*setup mocksmtps on dev server*
+
+*copy /etc/screen.d over*
 
