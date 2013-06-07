@@ -29,7 +29,5 @@ ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
   :address => 'localhost',
-  :port => 2525,
-  :domain => ''
+  :port => 3535
 }
-
