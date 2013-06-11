@@ -2,7 +2,8 @@
 
 == Requires rvmrc
 
-    rvm --rvmrc --create ruby-1.8.7-p371@pulse --create
+    rvm install ree-1.8.7-2012.02
+    rvm --rvmrc --create ree-1.8.7@pulse --create
 
     gem install rails --version 2.3.18
     gem install json_pure --version 1.7.7

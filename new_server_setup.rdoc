@@ -3,6 +3,8 @@ May 20132013
 
 This is a _rough_ log of setting up a new Debian 7 server.
 
+Staging server ip 184.106.215.248
+
 == upgrade squeeze to wheezy if necessary
 http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
 
@@ -41,6 +43,7 @@ TODO:
     sudo a2enmod headers
     sudo a2enmod proxy
     sudo a2enmod ssl
+    sudo a2enmod rewrite
     sudo apt-get install libapache2-mod-xsendfile
     sudo apt-get install libapache2-mod-php5
     sudo apt-get install libapache2-mod-proxy-html
@@ -91,6 +94,7 @@ TODO:
 
     rvm install ree-1.8.7-2012.02
     rvm --rvmrc --create ree-1.8.7@pat --create
+    rvm gemset create pat
 
     gem install rails --version 2.3.18
     gem install RedCloth --version 4.2.2
@@ -105,9 +109,17 @@ TODO:
     /etc/apache2/sites-enabled/elk.campusforchrist.org
     /etc/apache2/sites-enabled/emu.powertochange.com
     
-    Had to remove RailsAutoDetect, replace it with PassengerEnabled, set RubyInterpreter to the rvm ruby path
+    Had to remove RailsAutoDetect, replace it with PassengerEnabled, set PassengerRuby to the rvm ruby path
 
 *setup mocksmtps on dev server*
+    
+    sudo scp -r deploy@emu.powertochange.com:/var/www/mocksmtpd .
+    gem sources -a http://gems.github.com
+    gem install koseki-mocksmtpd
 
 *copy /etc/screen.d over*
+
+    cd /etc
+    sudo scp -r deploy@emu.powertochange.com:/etc/screen.d .
+    sudo scp -r deploy@192.168.242.176:/etc/screen.d .
 
