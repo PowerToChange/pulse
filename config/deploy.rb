@@ -5,7 +5,7 @@ set :scm, 'git'
 set :repository, "git://github.com/PowerToChange/pulse.git"
 set :deploy_via, :checkout
 set :git_enable_submodules, false
-set :git_shallow_clone, true
+set :git_shallow_clone, 1
 
 after "deploy", "deploy:cleanup"
 

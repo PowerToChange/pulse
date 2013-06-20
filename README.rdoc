@@ -2,9 +2,12 @@
 
 == Requires rvmrc
 
+    in ~/.gemrc make sure this line exists: "gem: --no-ri --no-rdoc"
+
     rvm install ree-1.8.7-2012.02
     rvm --rvmrc --create ree-1.8.7@pulse --create
 
+    gem install rake --version 0.8.7
     gem install rails --version 2.3.18
     gem install json_pure --version 1.7.7
     gem install fastercsv --version 1.5.3
@@ -22,7 +25,6 @@
     gem install autometal-geoip --version 0.4.0
     gem install http_accept_language --version 1.0.0
     gem install i18n --version 0.6.1
-    gem install mysql2 --version 0.2.7
     gem install newrelic_rpm --version 3.5.3.25
     gem install hpricot --version 0.8.3
     gem install chronic --version 0.3.0
@@ -31,6 +33,11 @@
     gem install mysql --version 2.8.1
     gem install mysql2 --version 0.2.7
     gem install capistrano --version 2.5.19
+
+== Get rid of rake 10.0.4
+
+    Pulse requires rake 0.8.7.  For some reason, rake 10.0.4 keeps installing.
+    http://knowtheabc.wordpress.com/2012/12/12/cannot-uninstall-rake-from-gemset/
 
 == Deploying
 
