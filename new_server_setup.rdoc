@@ -89,6 +89,20 @@ TODO:
 
     sudo apt-get install screen
 
+*htmldoc is used by the pat to generate pdf from html*
+
+    sudo apt-get install htmldoc
+
 *crontab*
 
-    
+SHELL=/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/opt/ruby/bin:/usr/sbin
+
+    # m h  dom mon dow   command
+    00 6 * * *      cd /var/www/pulse.powertochange.com/current && RAILS_ENV=production /opt/ruby/bin/rake pulse:deliver_emails_working
+    00 * * * *      cd /var/www/pat.powertochange.org/current && RAILS_ENV=production /opt/ruby/bin/rake tmp:cache:clear
+    15 5 * * *      cd /var/www/pat.powertochange.org/current && RAILS_ENV=production /opt/ruby/bin/rake db:sessions:clear
+    30 5 * * *      cd /var/www/pulse.powertochange.com/current && RAILS_ENV=production /opt/ruby/bin/rake db:sessions:clear
+    20 * * * *      ruby /etc/screen.d/dj_pulse.rb
+    * * * * *       cd /var/www/pulse.powertochange.com/current && RAILS_ENV=production flock -n tmp/connect.lock rake connect:import_contacts
+
