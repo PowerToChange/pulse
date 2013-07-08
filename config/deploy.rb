@@ -86,7 +86,7 @@ namespace :db do
   task :pull do
     rake = fetch(:rake, "rake")
     rails_env = fetch(:rails_env, "production")
-    out = capture "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} db:dump #{"remotedb=#{ENV['remotedb']}" if ENV['remotedb']}"
+    out = capture "bash --login -c 'cd #{current_path}; rake RAILS_ENV=#{rails_env} db:dump #{"remotedb=#{ENV['remotedb']}" if ENV['remotedb']}'"
     puts "output: #{out}"
     out =~ /Dumping (.*) to (.*)/
     remote_db = $1
