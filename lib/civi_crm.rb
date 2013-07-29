@@ -169,20 +169,16 @@ module CiviCRM
       begin
         [:entity, :action, :api_key, :key].each { |required_param| raise "'#{required_param}' required parameter not supplied for call to CiviCRM" unless params[required_param].present? }
 
-        if [:create, :delete, :update].include?(params[:action].to_sym)
-          log :debug, "POST #{uri}"
-          http = Net::HTTP.new(uri.host, uri.port)
-          request = Net::HTTP::Post.new(uri.request_uri)
-          request.set_form_data(params)
-          response = http.request(request)
-        else
-          log :debug, "GET #{uri}"
-          response = Net::HTTP.get_response(uri)
-        end
-
+        log :debug, "POST #{uri}"
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request.set_form_data(params)
+        response = http.request(request)
+       
         raise "Unsuccessful HTTP request: #{response}" unless response.is_a? Net::HTTPOK
       rescue => e
-        log :error, e
+        log :error, 'Error while requesting data', e
         return nil
       end
 
