@@ -1,6 +1,8 @@
 = The Pulse
 
-== Requires rvmrc
+== Setup
+
+=== Requires rvmrc
 
     in ~/.gemrc make sure this line exists: "gem: --no-ri --no-rdoc"
 
@@ -34,7 +36,7 @@
     gem install mysql2 --version 0.2.7
     gem install capistrano --version 2.5.19
 
-== Get rid of rake 10.0.4
+=== Get rid of rake 10.0.4
 
     Pulse requires rake 0.8.7.  For some reason, rake 10.0.4 keeps installing.
     http://knowtheabc.wordpress.com/2012/12/12/cannot-uninstall-rake-from-gemset/
@@ -49,7 +51,7 @@ production (deploy branch master on github to pulse.powertochange.com):
 
   cap production deploy
 
-=== Roll-back to previous deploy
+=== Roll-back
 (you may only be able to do this once)
 
 staging:
@@ -60,6 +62,11 @@ production:
 
   cap production deploy:rollback
 
-== Restart server (Passenger)
+== Restart Application Server (Passenger)
 
-  touch tmp/restart.txt
+  touch /var/www/pulse.powertochange.com/current/tmp/restart.txt
+
+== Rails Console (Production)
+
+  cd /var/www/pulse.powertochange.com/current
+  ruby script/console production
