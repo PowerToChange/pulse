@@ -12,7 +12,7 @@ module ConnectHelper
     end
 
     processed_line.scan(/(Connect contact (\d+))/).each do |match|
-      processed_line.gsub! match.first, link_to(match.first, "http://#{ENV['RAILS_ENV'] == 'production' ? '' : 'staging'}connect.powertochange.org/civicrm/contact/view?reset=1&cid=#{match.second}", :target => '_blank')
+      processed_line.gsub! match.first, link_to(match.first, "http://#{ENV['RAILS_ENV'] == 'production' ? '' : 'staging'}connect.p2c.com/civicrm/contact/view?reset=1&cid=#{match.second}", :target => '_blank')
     end
 
     processed_line.gsub! "\n", '<br>&nbsp;'
