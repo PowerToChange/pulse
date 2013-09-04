@@ -1,5 +1,5 @@
 development:
-  rest_api_url: 'http://stagingconnect.powertochange.org/sites/all/modules/civicrm/extern/rest.php'
+  rest_api_url: 'http://stagingconnect.p2c.com/sites/all/modules/civicrm/extern/rest.php'
   api_key: '1'
   key: 'your api key'
   log_path: 'log/connect_civicrm_api.log'
