@@ -3,6 +3,7 @@ class Mailers::EmailMailer < ActionMailer::Base
     recipients   recipients
     from         Cmt::CONFIG[:email_from_address]
     content_type "text/html"
+    headers      "X-MC-Important" => "True"
     @subject     = subject
     @sent_on     = Time.now
     @body        = body
@@ -12,6 +13,7 @@ class Mailers::EmailMailer < ActionMailer::Base
     recipients   person.primary_email.strip
     from         "\"#{email.sender.full_name}\" <#{email.sender.primary_email}>"
     content_type "text/html"
+    headers      "X-MC-Important" => "True"
     @subject     = email.subject
     @sent_on     = Time.now
     @body[:person] = person
@@ -22,6 +24,7 @@ class Mailers::EmailMailer < ActionMailer::Base
     recipients   email.sender.primary_email.strip
     from         Cmt::CONFIG[:email_from_address]
     content_type "text/html"
+    headers      "X-MC-Important" => "True"
     @subject     = "#{I18n.t("misc.email_prefix")} Email sent on your behalf"
     @sent_on     = Time.now
     @body = {:email => email, :missing => missing, :errors => errors}
@@ -30,6 +33,7 @@ class Mailers::EmailMailer < ActionMailer::Base
   def emails_working(emails)
     recipients   emails
     from         Cmt::CONFIG[:email_from_address]
+    headers      "X-MC-Important" => "True"
     @subject     = "#{I18n.t("misc.email_prefix")} Emails still working"
     @sent_on     = Time.now
   end

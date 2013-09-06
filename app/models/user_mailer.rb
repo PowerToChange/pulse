@@ -1,6 +1,7 @@
 # Sends an email to a user after creation of a new account
 class UserMailer < ActionMailer::Base
   def created_student(person, ministry, added_by, password = nil)
+    headers       "X-MC-Important" => "True"
     password ||= person.user.plain_password
     if password.empty?
       # We need a password
@@ -10,6 +11,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def confirm_email(email)
+    headers       "X-MC-Important" => "True"
     @recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.confirm_email_subject")}"
@@ -18,6 +20,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def signup_finished_email(email, link, joined_collection_group)
+    headers       "X-MC-Important" => "True"
     @recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.signup_finished_subject")}"
@@ -28,6 +31,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def signup_confirm_email(email, link)
+    headers       "X-MC-Important" => "True"
     @recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.signup_confirm_subject")}"
@@ -39,6 +43,7 @@ class UserMailer < ActionMailer::Base
   def group_join_email(requested, interested, group_name, leader_first_name, leader_email, 
                        member_first_name, member_last_name, member_email, member_phone, 
                        join_time, school_year, group_link)
+    headers       "X-MC-Important" => "True"
     @content_type = "text/html"
     @recipients  = leader_email
     @from        = Cmt::CONFIG[:email_from_address]
@@ -64,6 +69,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def summer_report_submitted(review, base_url)
+    headers       "X-MC-Important" => "True"
     @content_type = "text/html"
     @recipients = review.person.email
     @from = Cmt::CONFIG[:email_from_address]
@@ -76,6 +82,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def summer_report_reviewed(summer_report, base_url)
+    headers       "X-MC-Important" => "True"
     @content_type = "text/html"
     @recipients = summer_report.person.email
     @from = Cmt::CONFIG[:email_from_address]
@@ -94,6 +101,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def group_invitation(group_invitation, base_url)
+    headers       "X-MC-Important" => "True"
     @content_type = "text/html"
     @recipients = group_invitation.recipient_email
     @from = Cmt::CONFIG[:email_from_address]
@@ -108,6 +116,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def group_invitation_decline(group_invitation, base_url)
+    headers       "X-MC-Important" => "True"
     @content_type = "text/html"
     @recipients = group_invitation.recipient_email
     @from = Cmt::CONFIG[:email_from_address]
@@ -126,6 +135,7 @@ class UserMailer < ActionMailer::Base
   
   protected
   def created(person, ministry, added_by, password)
+    headers       "X-MC-Important" => "True"
     @recipients  = person.user.username
     @from         = Cmt::CONFIG[:email_from_address]
     @subject     = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.created_student_subject")}"

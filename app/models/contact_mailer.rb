@@ -14,6 +14,7 @@ class ContactMailer < ActionMailer::Base
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")}You have #{contacts.length > 1 ? "#{contacts.length} new contacts" : 'one new contact'} assigned to you for follow-up!"
     @sent_on      = Time.now
+    headers       "X-MC-Important" => "True"
   end
 
 end
