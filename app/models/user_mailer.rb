@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
     @body[:code]  = User.secure_digest(email)
   end
 
-  def signup_finished_email(email, link, joined_collection_group)
+  def signup_finished_email(email, link, joined_collection_group, previous_error = false)
     headers       "X-MC-Important" => "True"
     @recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
@@ -28,6 +28,7 @@ class UserMailer < ActionMailer::Base
     @content_type = "text/html"
     @body[:joined_collection_group] = joined_collection_group
     @body[:link]  = link
+    @body[:error] = previous_error 
   end
 
   def signup_confirm_email(email, link, previous_error = false)
