@@ -3,15 +3,16 @@ module Pat
     # 58    # 2010 projects
     # 75    # 2011 projects
     # 82    # 2012 projects
-    94    # 2013 projects
+    # 94    # 2013 projects
+    102   # 2013 projects
   end
 
   def current_project_ids
-    Pat::EventGroup.find(current_event_group_id).projects.collect(&:id) + [
-      345, # Gain 2013 Haiti Spring Break
-      365, # Gain 2013 Mukti Mission
-      349, # Gain 2013 Benin
-    ]
+    Pat::EventGroup.find(current_event_group_id).projects.collect(&:id)# + [
+      #345, # Gain 2013 Haiti Spring Break
+      #365, # Gain 2013 Mukti Mission
+      #349, # Gain 2013 Benin
+    #]
   end
 
   def project_acceptance_totals(campus_ids, secondary_sort = {}, project_ids = current_project_ids)
