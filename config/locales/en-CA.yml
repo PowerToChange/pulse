@@ -447,6 +447,8 @@ en-CA:
       <HTML>
         <P>Thank you for signing up at the Pulse.  To continue the signup process, please follow this link to verify your email to allow you to join a group and submit your timetable.</P>
 
+        <% if @error %><P>A previous email from our Pulse system contained a broken link, please use the link below. Sorry for any confusion this might have caused.</P><% end %>
+
         <P><A HREF="<%= @link %>" target="_blank"><%= @link %></A></P>
 
         <P>If you have any problems verifying your email, please contact helpdesk@powertochange.org</P>
@@ -455,6 +457,8 @@ en-CA:
     signup_finished_email: |
       <HTML>
         <P>Thank you for signing up for a group in the Pulse and/or updating your timetable.  If you need to submit or update your timetable, please follow the link below to do so.<% if @joined_collection_group %>  A group leader from your campus will contact you via email once you are placed in a group.<% end %></P>
+
+        <% if @error %><P>A previous email from our Pulse system contained a broken link, please use the link below. Sorry for any confusion this might have caused.</P><% end %>
 
         <P><A HREF="<%= @link %>" target="_blank"><%= @link %></A></P>
       </HTML>

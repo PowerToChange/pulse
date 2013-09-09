@@ -30,14 +30,15 @@ class UserMailer < ActionMailer::Base
     @body[:link]  = link
   end
 
-  def signup_confirm_email(email, link)
+  def signup_confirm_email(email, link, previous_error = false)
     headers       "X-MC-Important" => "True"
-    @recipients   = "#{email}"
+    recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.signup_confirm_subject")}"
     @sent_on      = Time.now
     @content_type = "text/html"
     @body[:link]  = link
+    @body[:error] = previous_error 
   end
 
   def group_join_email(requested, interested, group_name, leader_first_name, leader_email, 
