@@ -33,7 +33,7 @@ class UserMailer < ActionMailer::Base
 
   def signup_confirm_email(email, link, previous_error = false)
     headers       "X-MC-Important" => "True"
-    recipients   = "#{email}"
+    @recipients   = "#{email}"
     @from         = Cmt::CONFIG[:email_from_address]
     @subject      = "#{I18n.t("misc.email_prefix")} #{I18n.t("emails.signup_confirm_subject")}"
     @sent_on      = Time.now
