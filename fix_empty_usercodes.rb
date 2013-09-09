@@ -11,11 +11,11 @@ ucs.each do |uc|
     link = uc.callback_url(base_url, "signup", "step2_email_verified")
     UserMailer.deliver_signup_confirm_email(uc.user.person.email, link, true)
   else
-    puts "Email #{uc.user.person.email} timestable"
+    puts "Email #{uc.user.person.email} timetable"
     uc.login_code.code = ::LoginCode.new_code
     uc.login_code.save!
     link = uc.callback_url(base_url, "signup", "timetable")
-    UserMailer.deliver_signup_finished_email(uc.user.person.email, link, true)
+    UserMailer.deliver_signup_finished_email(uc.user.person.email, link, false, true)
   end
   raise "done one"
 end
