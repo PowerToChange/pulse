@@ -70,3 +70,7 @@ production:
 
   cd /var/www/pulse.powertochange.com/current
   ruby script/console production
+
+== Required ubuntu/debian packages
+
+  apt-get install uuid-runtime
