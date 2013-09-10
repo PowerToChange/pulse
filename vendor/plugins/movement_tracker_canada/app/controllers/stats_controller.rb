@@ -364,8 +364,8 @@ class StatsController < ApplicationController
       condition = "m.lft >= #{ministry.lft} AND m.rgt <= #{ministry.rgt} AND #{Timetable.__(:updated_at)} > ?"
       condition_args = []
     else
-      joins = "INNER JOIN #{CampusInvolvement.table_name} ci ON ci.person_id = #{Timetable.__(:person_id)}"
-      condition = "#{User._(:last_login)} > ? AND ci.campus_id = ?"
+      joins = "INNER JOIN #{CampusInvolvement.table_name} ci ON ci.person_id = #{Timetable.__(:person_id)} INNER JOIN #{Access.table_name} a ON a.person_id = #{Timetable.__(:person_id)} INNER JOIN #{User.table_name} v ON a.viewer_id = v.#{User._(:id)}"
+      condition = "v.#{User._(:last_login)} > ? AND ci.campus_id = ?"
       condition_args = [campus.id]
     end
 
