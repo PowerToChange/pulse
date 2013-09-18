@@ -51,6 +51,8 @@ deploy.task :before_symlink do
   link_shared 'config/initializers/eventbright.rb', :overwrite => true
 
   link_shared "public/emu.profile_pictures"
+  link_shared "public/pulse.profile_pictures"
+  link_shared "public/stagepulse.profile_pictures"
 
   run "cd #{release_path} && git submodule init"
   run "cd #{release_path} && git submodule update"
