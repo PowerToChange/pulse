@@ -111,3 +111,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/opt/ruby/bin:
 *uuid*
 
     sudo apt-get install uuid-runtime
+
+*important note about profile pictures*
+
+    @hen changing the name of the pulse app, make sure that the profile pictures directory in /var/www/<app>/shared/<name>.profile_pictures works and points to the current profile picture directory.  I've been aliasing /shared/<ALL NAMES>.profile_pictures to the current profile pictures directory.  Make sure the deploy.rb file is setting up aliases from the public profile pic directories to shared. -AR
