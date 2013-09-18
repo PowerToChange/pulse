@@ -18,9 +18,8 @@ http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
 
 *set correct time*
     sudo dpkg-reconfigure tzdata
+    sudo apt-get install ntpdate vim htop
     sudo ntpdate pool.ntp.org
-    sudo apt-get install vim
-    sudo apt-get install htop
 
 *apache*
     sudo apt-get install apache2 apache2-prefork-dev autoconf bison build-essential curl git-core imagemagick mysql-client mysql-common mysql-server openssl php5 libcurl4-openssl-dev
@@ -32,6 +31,9 @@ http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
     source /etc/profile.d/rvm.sh
 
 *logout and back in for rvm*
+
+*install a default ruby*
+    apt-get install ruby ruby-dev
 
 TODO:
 
@@ -55,7 +57,7 @@ TODO:
 
 *install passenger*
 
-    gem install passenger
+    sudo gem install passenger
     rvmsudo passenger-install-apache2-module
 
 *pulse gems*
@@ -106,3 +108,6 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/opt/ruby/bin:
     20 * * * *      ruby /etc/screen.d/dj_pulse.rb
     * * * * *       cd /var/www/pulse.powertochange.com/current && RAILS_ENV=production flock -n tmp/connect.lock rake connect:import_contacts
 
+*uuid*
+
+    sudo apt-get install uuid-runtime
