@@ -1,3 +1,4 @@
+<% if @project_campuses && @project_totals %>
             <table class="collapse">
               <tbody>
                 <tr>
@@ -149,3 +150,4 @@
                 $('[data-collapsed_cycle]').each(function(i, el) { val = $(el).attr('data-collapsed_cycle'); $(el).removeClass('odd').removeClass('even').addClass(val); });
               });
             </script>
+<% end %>

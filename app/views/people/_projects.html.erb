@@ -1,13 +1,14 @@
 <ul id='profile_projects'>
-  <% if @person.user.present? && @person.user.attending_profiles.present? %>
+  <%# TODO  - need to use an API into the pat for this data %>
+  <% if false # @person.user.present? && @person.user.attending_profiles.present? %>
     <% @person.user.attending_profiles.each do |profile| %>
       <li><%= profile.try(:project).try(:pulse_name) || profile.try(:project).try(:title) %></li>
     <% end %>
   <% else %>
     <% if @person == @me %>
-      You haven't gone on any projects yet
+      <!--You haven't gone on any projects yet-->
     <% else %>
-      <%= @person.first_name %> hasn't gone on any projects yet
+      <!--<%= @person.first_name %> hasn't gone on any projects yet-->
     <% end %>
   <% end %>
   <p>
