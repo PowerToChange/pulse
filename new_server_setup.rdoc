@@ -24,6 +24,9 @@ http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
 *apache*
     sudo apt-get install apache2 apache2-prefork-dev autoconf bison build-essential curl git-core imagemagick mysql-client mysql-common mysql-server openssl php5 libcurl4-openssl-dev
 
+*install a default ruby*
+    apt-get install ruby ruby-dev
+
 *rvm*
 
     sudo bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
@@ -32,8 +35,9 @@ http://www.howtoforge.com/how-to-upgrade-debian-squeeze-to-wheezy
 
 *logout and back in for rvm*
 
-*install a default ruby*
-    apt-get install ruby ruby-dev
+*need to downgrade rubygems due to a problem encountered*
+    cd to app path
+    rvmsudo rvm install rubygems 1.8.25
 
 TODO:
 
@@ -52,13 +56,15 @@ TODO:
 
     sudo service apache2 restart
 
-*install rubygems*
-    http://rubyforge.org/frs/?group_id=126&release_id=47112
-
 *install passenger*
 
     sudo gem install passenger
     rvmsudo passenger-install-apache2-module
+
+    make sure to do this from the rvm running the pulse
+
+*other ubuntu packages required for building gems*
+    sudo apt-get install libxslt-dev
 
 *pulse gems*
 
@@ -68,12 +74,14 @@ TODO:
 
     see README
 
-*copy apache configs over*
+*setup apache site*
 
-    /etc/apache2/sites-enabled/elk.campusforchrist.org
-    /etc/apache2/sites-enabled/emu.powertochange.com
+    sudo scp deploy@emu.powertochange.com:/etc/apache2/sites-available/emu.powertochange.com /etc/apache2/sites-available/
+    sudo a2ensite pulse.powertochange.com
+    sudo a2dissite default
     
     Had to remove RailsAutoDetect, replace it with PassengerEnabled, set PassengerRuby to the rvm ruby path
+    Had to use /usr/local/rvm/wrappers/ree-1.8.7-2012.02@pulse/ruby as the ruby path
 
 *setup mocksmtps on dev server*
     
@@ -114,4 +122,6 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/opt/ruby/bin:
 
 *important note about profile pictures*
 
-    @hen changing the name of the pulse app, make sure that the profile pictures directory in /var/www/<app>/shared/<name>.profile_pictures works and points to the current profile picture directory.  I've been aliasing /shared/<ALL NAMES>.profile_pictures to the current profile pictures directory.  Make sure the deploy.rb file is setting up aliases from the public profile pic directories to shared. -AR
+    When changing the name of the pulse app, make sure that the profile pictures directory in /var/www/<app>/shared/<name>.profile_pictures works and points to the current profile picture directory.  I've been aliasing /shared/<ALL NAMES>.profile_pictures to the current profile pictures directory.  Make sure the deploy.rb file is setting up aliases from the public profile pic directories to shared. -AR
+
+*copy over profile_pictures before going live*
