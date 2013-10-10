@@ -59,8 +59,8 @@
       :c4c => {:order => 1, :label => "P2C-S Reports", :controller => :stats, :action => :index, :scopes => [:summary, :campus_drill_down, :staff_drill_down]},
       :p2c => {:order => 5, :label => "Power to Change Reports", :controller => :stats, :action => :show_p2c_report, :scopes => [:summary]},
       :ccci => {:order => 6, :label => "CCCI Reports", :controller => :stats, :action => :show_ccci_report, :scopes => [:summary, :campus_drill_down]},
-      :hpctc => {:order => 2, :label => "How People Came to Christ", :controller => :stats, :action => :how_people_came_to_christ, :scopes => [:summary]},
-      :story => {:order => 3, :label => "Salvation Story Synopses", :controller => :stats, :action => :salvation_story_synopses, :scopes => [:summary]},
+      :hpctc => {:hidden => true, :order => 2, :label => "How People Came to Christ", :controller => :stats, :action => :how_people_came_to_christ, :scopes => [:summary]},
+      :story => {:hidden => true, :order => 3, :label => "Salvation Story Synopses", :controller => :stats, :action => :salvation_story_synopses, :scopes => [:summary]},
       :labelled_people => {:order => 8, :label => "Label Report", :controller => :stats, :action => :labelled_people, :scopes => [:summary]},
 
       :discover_contact_volunteer_activity => {:order =>  9, :label => "Discover &#8211; Volunteer Activity", :controller => :stats, :action => :discover_contact_volunteer_activity, :scopes => [:summary]},
@@ -646,13 +646,13 @@
                            {:report => :monthly_report, :line => :med_gos_pres}],
           :order => 1
         },
-        :win_decisions => {
-          :label => "2. WIN - DECISIONS",
-          :collected => :weekly,
-          :column_type => :sum,
-          :columns_sum => [{:report => :indicated_decisions_report, :line => :indicated_decisions}],
-          :order => 2
-        },
+#        :win_decisions => {
+#          :label => "2. WIN - DECISIONS",
+#          :collected => :weekly,
+#          :column_type => :sum,
+#          :columns_sum => [{:report => :indicated_decisions_report, :line => :indicated_decisions}],
+#          :order => 2
+#        },
         :build_growth => {
           :label => "3. BUILD - GROWTH GROUP MEMBERS",
           :collected => :monthly,
@@ -707,13 +707,13 @@
                            {:report => :monthly_report, :line => :med_gos_pres}],
           :order => 1
         },
-        :indicated_decisions => {
-          :label => "2. Number of indicated decisions for Christ",
-          :collected => :monthly,
-          :column_type => :sum,
-          :columns_sum => [{:report => :indicated_decisions_report, :line => :indicated_decisions}],
-          :order => 2
-        },
+#        :indicated_decisions => {
+#          :label => "2. Number of indicated decisions for Christ",
+#          :collected => :monthly,
+#          :column_type => :sum,
+#          :columns_sum => [{:report => :indicated_decisions_report, :line => :indicated_decisions}],
+#          :order => 2
+#        },
         :people_in_studies => {
           :label => "3. Number of people in evangelistic studies (i.e. discovery groups or individual sessions)",
           :collected => :monthly,
@@ -722,13 +722,13 @@
           :show_total => false,
           :order => 3
         },
-        :integrated_new_believers => {
-          :label => "4. Integrated new believers",
-          :collected => :monthly,
-          :column_type => :sum,
-          :columns_sum => [{:report => :monthly_report, :line => :integrated_new_believers}],
-          :order => 4
-        },
+#        :integrated_new_believers => {
+#          :label => "4. Integrated new believers",
+#          :collected => :monthly,
+#          :column_type => :sum,
+#          :columns_sum => [{:report => :monthly_report, :line => :integrated_new_believers}],
+#          :order => 4
+#        },
         :people_in_growth_groups => {
           :label => "5. Number of people in growth groups",
           :collected => :monthly,

@@ -1,6 +1,6 @@
 <%
 
-submit_links = [{ :text => "Indicated Decision", :controller => :prcs, :action => :index },
+submit_links = [# { :text => "Indicated Decision", :controller => :prcs, :action => :index },
                 { :text => "Monthly Stats", :controller => :monthly_reports, :action => :new }]
 
 report_links = [] # once contained links to reports but they were all moved into constants.rb
@@ -12,49 +12,29 @@ end
 submit_links = clean_links(submit_links)
 report_links = clean_links(report_links)
 
-unless submit_links.empty?
-  unless @mobile
 		%>
 		<h3>Update</h3>
 		<ul class="statsLinkList">
+			<li class="statsListLink"><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/decisions.php?add=true' %></li
 		<%
-	else
-		%>
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="c">
-		<li data-role="list-divider">Update</li>
-		<%
-  end
 	submit_links.each do |l|
 	  %>
 	  <li class="statsListLink"><%= link_to l[:text], url_for(:controller => l[:controller], :action => l[:action]) %></li>
 	  <%
 	end
-  %></ul><%
-end
-
-unless @mobile
-
-	unless report_links.empty? && report_type_links_to_show.empty?
-	  %>
-	  <%= submit_links.present? ? "<br/>" : "" %>
+  %></ul>
+  
+	  <br/>
 	  <h3>Review</h3>
 	  <ul class="statsLinkList">
+	  	<li><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/idbigpicture.php' %></li>
 	  <%
-	end
 	report_links.each do |l|
 	  %>
 	  <li class="statsListLink"><%= link_to l[:text], url_for(:controller => l[:controller], :action => l[:action]) %></li>
 	  <%
 	end
 	%>
-	<%= render :partial => 'stats/report_type_list_links' %>
-	<li><%= link_to "School Report", :controller => "civicrm_schools", :action => :index %></li>
-	<%
-	unless report_links.empty? && report_type_links_to_show.empty?
-	  %>
+			<%= render :partial => 'stats/report_type_list_links' %>
+			<li><%= link_to "School Report", :controller => "civicrm_schools", :action => :index %></li>
 	  </ul>
-	  <%
-	end
-
-end
-%>

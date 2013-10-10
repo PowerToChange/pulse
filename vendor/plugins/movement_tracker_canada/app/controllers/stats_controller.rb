@@ -816,7 +816,7 @@ class StatsController < ApplicationController
     end
     if @reports_to_show.empty?
         add_report_if_authorized(:weekly_report)
-        add_report_if_authorized(:indicated_decisions_report)
+        # add_report_if_authorized(:indicated_decisions_report)
         add_report_if_authorized(:monthly_report) if ['year', 'semester'].include?(@stats_time)
         if @report_scope == SUMMARY
           add_report_if_authorized(:semester_report) if @stats_time == 'year'
