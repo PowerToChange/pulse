@@ -18,12 +18,13 @@ def link_shared(p, o = {})
 end
 
 task :production do
-  role :app, 'pat.powertochange.org'
+  #role :app, 'pat.powertochange.org'
+  role :app, '192.237.176.145'
   set :rails_env, 'production'
   set :application, 'pulse'
   set :title, 'pulse'
   set :branch, 'master'
-  set :deploy_to, "/var/www/pulse.powertochange.com"
+  set :deploy_to, "/var/www/pulse.p2c.com"
 end
 
 task :staging do
