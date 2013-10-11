@@ -80,3 +80,5 @@ production:
 == Required ubuntu/debian packages
 
   apt-get install uuid-runtime
+  
+== Please don't forget to smile. Life is good :D
