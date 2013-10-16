@@ -1,4 +1,5 @@
 class Activity < ActiveRecord::Base
+  include CiviCRM
   TYPES = [[nil, 0], ['Interaction', 1], ['Spiritual Conversation', 2], ['Gospel Presentation', 3], ['Indicated Decision', 4], ['Shared Spirit-filled life', 5]]
 
   belongs_to :reporter, :class_name => 'Person', :foreign_key => :reporter_id
@@ -46,19 +47,38 @@ class Activity < ActiveRecord::Base
       else
         12 # Other
       end
+        
+      civicrm_infos = {
+        :contact_info => {
+          :contact_type => 'Individual',
+          :first_name => self.reportable.first_name
+        },
+        :school_info => {
+          :external_identifier => self.reportable.campus_id
+        }
+      }
+      
+      connect = CiviCRM::API.new
 
-      prc_attributes = {
-          :prc_firstName => self.reportable.first_name,
-          :prcMethod_id => method_id,
-          :prc_witnessName => self.reporter.full_name,
-          :semester_id => Semester.find_semester_from_date(self.created_at).id,
-          :campus_id => self.reportable.campus_id,
-          :prc_notes => notes,
-          :prc_date => self.created_at.to_date
+      newcontact = connect.create(:Contact, :with => civicrm_infos[:contact_info])
+      school = connect.get(:Contact, :with => civicrm_infos[:school_info])
+  
+      rejoiceable_info = {
+          :source_contact_id => self.reporter.civicrm_id,
+          :target_contact_id => newcontact[0].id,
+          :assignee_contact_id => school[0].id,
+          :activity_type_id => 47, #Rejoiceable
+          :subject => 'Indicated Decision',
+          :status_id => 2,  # Completed
+          :activity_date_time => self.created_at.to_date, # MAKE SURE THIS IS YYYY-MM-DD
+          :engagement_level => 0, # ??
+          :custom_143 => '4', #Indicated Decision
+          :custom_163 => '2',  #Friendship Evangelism
+          :custom_171 => self.reporter.full_name,
+          :details => 'Imported from Discover Contact Tracking'
         }
 
-      Prc.new(prc_attributes).save if Prc.find(:all, :conditions => prc_attributes).blank?
+      rejoiceable = connect.create(:Activity, :with => rejoiceable_info)
     end
-
   end
 end
