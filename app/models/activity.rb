@@ -73,8 +73,8 @@ class Activity < ActiveRecord::Base
           :activity_date_time => self.created_at.to_date, # MAKE SURE THIS IS YYYY-MM-DD
           :engagement_level => 0, # ??
           :custom_143 => '4', #Indicated Decision
-          :custom_163 => '2',  #Friendship Evangelism
-          :custom_171 => self.reporter.full_name,
+          :custom_218 => '2',  #Friendship Evangelism
+          :custom_219 => self.reporter.full_name,
           :details => 'Imported from Discover Contact Tracking'
         }
 
