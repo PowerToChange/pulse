@@ -143,6 +143,13 @@
                 </div>
               </noscript>
 
+              <% if Rails.env.staging? %>
+                <div class="flash_notice flash warning">
+                  <%= image_tag "/images/silk/exclamation.png" %>
+                  <b>This is the pulse staging site, NOT the live site.  Please do not use this unless you're a developer.</b>
+                </div>
+              <% end %>
+
               <div class="flash notice fade_on_pjax" id="flash_notice" <%= %(style="display:none;") unless flash[:notice].present? %>><%= flash[:notice] %></div>
 
               <%- if @notices -%>
