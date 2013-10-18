@@ -205,7 +205,7 @@ class GroupsController < ApplicationController
       @notices << "Poor state is currently enabled in the timetables. The 'Compare timetables' feature will not include the poor states during comparison."
     end
 
-    @group = Group.find(params[:id], :include => {:people => [:free_times]})
+    @group = Group.find(params[:id], :joins => {:people => [:free_times]})
 
     person_ids = params[:members] ? Array.wrap(params[:members]).map(&:to_i) : []
     # if nobody is selected, compare schedules of everyone in group
