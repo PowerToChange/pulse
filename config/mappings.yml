@@ -1,12 +1,3 @@
-# This file is copied from vendor/plugins/movement_tracker_canada/mappings.yml
-#
-# Make sure to edit that file, not the one in RAILS_ROOT/config/mappings.yml
-#
-lib_path: vendor/plugins/movement_tracker_canada/app/models
-
-databases:
-  <%= "pat" %>: pat/project, pat/profile, pat/appln, pat/form, pat/event_group
-
 tables:
   user: accountadmin_viewer
   person: cim_hrdb_person
