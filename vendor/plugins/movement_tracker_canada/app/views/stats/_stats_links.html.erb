@@ -1,7 +1,8 @@
 <%
 
 submit_links = [# { :text => "Indicated Decision", :controller => :prcs, :action => :index },
-                { :text => "Monthly Stats", :controller => :monthly_reports, :action => :new }]
+                #{ :text => "Monthly Stats", :controller => :monthly_reports, :action => :new }
+               ]
 
 report_links = [] # once contained links to reports but they were all moved into constants.rb
 
@@ -15,7 +16,9 @@ report_links = clean_links(report_links)
 		%>
 		<h3>Update</h3>
 		<ul class="statsLinkList">
-			<li class="statsListLink"><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/decisions.php?add=true' %></li
+			<li class="statsListLink"><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/decisions.php?add=true' %></li>
+			<li class="statsListLink"><%= link_to 'Event Stats', 'http://hub.p2c.com/insights/eventstats.php' %></li>
+			<li class="statsListLink"><%= link_to 'Monthly Stats', 'http://hub.p2c.com/insights/monthlystats.php' %></li>
 		<%
 	submit_links.each do |l|
 	  %>
@@ -28,6 +31,8 @@ report_links = clean_links(report_links)
 	  <h3>Review</h3>
 	  <ul class="statsLinkList">
 	  	<li><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/idbigpicture.php' %></li>
+		<li><%= link_to 'Event Stats', 'http://hub.p2c.com/insights/eventtype.php' %></li>
+		<li><%= link_to 'Movement Snapshots', 'http://hub.p2c.com/insights/monbigpicture.php' %></li>
 	  <%
 	report_links.each do |l|
 	  %>
