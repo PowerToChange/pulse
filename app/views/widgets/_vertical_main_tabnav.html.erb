@@ -83,7 +83,7 @@ render_tabnav :vertical_main,
       add_tab do |t|
         t.named "<span id='weeklyStatsTab' class='tab subtab'>enter monthly stats</span>"
         t.titled "Enter your monthly stats"
-        t.links_to :controller => :monthly_reports, :action => :new
+        t.links_to 'https://hub.p2c.com/insights/monthlystats.php'
       end
     end
   end
