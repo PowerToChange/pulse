@@ -13,26 +13,12 @@ end
 submit_links = clean_links(submit_links)
 report_links = clean_links(report_links)
 
-		%>
-		<h3>Update</h3>
-		<ul class="statsLinkList">
-			<li class="statsListLink"><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/decisions.php?add=true' %></li>
-			<li class="statsListLink"><%= link_to 'Event Stats', 'http://hub.p2c.com/insights/eventstats.php' %></li>
-			<li class="statsListLink"><%= link_to 'Monthly Stats', 'http://hub.p2c.com/insights/monthlystats.php' %></li>
-		<%
-	submit_links.each do |l|
 	  %>
-	  <li class="statsListLink"><%= link_to l[:text], url_for(:controller => l[:controller], :action => l[:action]) %></li>
-	  <%
-	end
-  %></ul>
+	  <h3><%= link_to 'New Insights Page', 'https://hub.p2c.com/insights/' %></h3>
   
 	  <br/>
-	  <h3>Review</h3>
+	  <h3>Pulse Reports</h3>
 	  <ul class="statsLinkList">
-	  	<li><%= link_to 'Indicated Decision', 'http://hub.p2c.com/insights/idbigpicture.php' %></li>
-		<li><%= link_to 'Event Stats', 'http://hub.p2c.com/insights/eventtype.php' %></li>
-		<li><%= link_to 'Movement Snapshots', 'http://hub.p2c.com/insights/monbigpicture.php' %></li>
 	  <%
 	report_links.each do |l|
 	  %>
