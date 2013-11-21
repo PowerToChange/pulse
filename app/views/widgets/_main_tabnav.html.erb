@@ -32,7 +32,7 @@ render_tabnav :main,
     add_tab do |t|
       t.named "<div id='insightsTab' class='tab'>INSIGHTS</div>"
       t.titled "Measuring the movement"
-      t.links_to :controller => 'stats'
+      t.links_to 'https://hub.p2c.com/insights/'
       t.highlights_on :controller => "stats"
       t.highlights_on :controller => "weekly_reports"
       t.highlights_on :controller => "semester_reports"
