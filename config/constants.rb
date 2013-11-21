@@ -802,7 +802,7 @@
       :event_status_completed => "Completed",
       :male => "Male",
       :female => "Female",
-      :first_year => {:en => "1st Year (Undergrad)", :fr => "1ère année (1er cycle)"},
+      :first_year => {:en => "1st Year", :fr => "1ère année"},
       :c4c_events_link => "http://p2c.eventbrite.com/",
       :num_days_to_display_event_after_completed => 10,
       :num_days_until_event_closed_after_completed => 6,
