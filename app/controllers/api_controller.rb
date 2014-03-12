@@ -42,7 +42,7 @@ class ApiController < ApplicationController
     respond_to do |format|
       format.xml {
         render :xml => "#{ministry_involvements_to_xml(@ministry_involvements,
-                            { :first_name => @my.first_name, :last_name => @my.last_name, :email => @my.email, :guid => @my.user.guid, :civicrm_id => @my.civicrm_id })}"
+                            { :id => @my.person_id, :first_name => @my.first_name, :last_name => @my.last_name, :email => @my.email, :guid => @my.user.guid, :civicrm_id => @my.civicrm_id })}"
       }
     end
   end
