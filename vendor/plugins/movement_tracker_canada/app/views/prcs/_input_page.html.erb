@@ -1,6 +1,9 @@
 <%= javascript_include_tag "inputLiveValidations.js" %>
 
-<h1 id="statsTitle">Measurements</h1>
+<h1 style="color:red">NOTE: New indicated decision tool available <a href="https://hub.p2c.com/insights/decisions.php">here</a></h1>
+<br>
+
+<!--<h1 id="statsTitle">Measurements</h1>
 
 <div class="statsFormContainer prc_report">
   <div id="newPRCFormContainer" class="statsFormBox">
@@ -13,7 +16,7 @@
       </div>
   </div>
   </div>
-</div>
+</div>-->
 
 <br/>
-<div class="backLink"><%= link_to 'Cancel and go back', url_for(:controller => :prcs, :action => :index) %></div>
+<div class="backLink"><%= link_to 'Cancel and go back', url_for(:controller => :stats, :action => :index) %></div>

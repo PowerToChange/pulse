@@ -92,7 +92,8 @@ class CivicrmSchoolsController < ApplicationController
         "geo_code_2,custom_68,custom_69,custom_70,custom_71,custom_72,custom_73,custom_74,custom_84,custom_85,"+
         "custom_86,custom_88,custom_89,custom_90,custom_91,custom_92,custom_93,custom_94,custom_95,"+
         "custom_96,custom_97,custom_98,custom_99,custom_100,custom_101,custom_102,custom_103,custom_104,custom_105,"+
-        "custom_106,custom_107,custom_108,custom_109,custom_110,custom_111,custom_112,custom_113,custom_114,phone_id,address_id" }).first
+        "custom_106,custom_107,custom_108,custom_109,custom_110,custom_111,custom_112,custom_113,custom_114,"+
+        "custom_228,custom_229,phone_id,address_id" }).first
     rescue => e
       connect.log :error, e
     end

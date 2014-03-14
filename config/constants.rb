@@ -56,11 +56,11 @@
 
   def report_types
     {
-      :c4c => {:order => 1, :label => "P2C-S Reports", :controller => :stats, :action => :index, :scopes => [:summary, :campus_drill_down, :staff_drill_down]},
-      :p2c => {:order => 5, :label => "Power to Change Reports", :controller => :stats, :action => :show_p2c_report, :scopes => [:summary]},
-      :ccci => {:order => 6, :label => "CCCI Reports", :controller => :stats, :action => :show_ccci_report, :scopes => [:summary, :campus_drill_down]},
-      :hpctc => {:hidden => true, :order => 2, :label => "How People Came to Christ", :controller => :stats, :action => :how_people_came_to_christ, :scopes => [:summary]},
-      :story => {:hidden => true, :order => 3, :label => "Salvation Story Synopses", :controller => :stats, :action => :salvation_story_synopses, :scopes => [:summary]},
+      :c4c => {:order => 1, :label => "Discover Engagements", :controller => :stats, :action => :index, :scopes => [:summary, :campus_drill_down, :staff_drill_down]},
+      :p2c => {:order => 5, :label => "Power to Change Reports *OLD", :controller => :stats, :action => :show_p2c_report, :scopes => [:summary]},
+      :ccci => {:order => 6, :label => "CCCI Reports *OLD", :controller => :stats, :action => :show_ccci_report, :scopes => [:summary, :campus_drill_down]},
+      :hpctc => {:hidden => true, :order => 2, :label => "How People Came to Christ *OLD", :controller => :stats, :action => :how_people_came_to_christ, :scopes => [:summary]},
+      :story => {:hidden => true, :order => 3, :label => "Salvation Story Synopses *OLD", :controller => :stats, :action => :salvation_story_synopses, :scopes => [:summary]},
       :labelled_people => {:order => 8, :label => "Label Report", :controller => :stats, :action => :labelled_people, :scopes => [:summary]},
 
       :discover_contact_volunteer_activity => {:order =>  9, :label => "Discover &#8211; Volunteer Activity", :controller => :stats, :action => :discover_contact_volunteer_activity, :scopes => [:summary]},
@@ -433,7 +433,8 @@
             :column_type => :database_column,
             :grouping_method => :sum,
             :display_type => :text_positive_integer,
-            :order => 1
+            :order => 1,
+            :display => :false
           },
           :survey_contacts_engagements => {
             :label => "September 2012 Launch Face-to-Face Engagements",
@@ -442,7 +443,8 @@
             :grouping_method => :none,
             :model => 'SurveyContact',
             :conditions => { :result => [5, 6, 7] },
-            :order => 2
+            :order => 2,
+            :display => :false
           },
           :discover_contacts_engagements => {
             :label => "Discover Contact Engagements",
@@ -458,7 +460,8 @@
             :column_type => :database_column,
             :grouping_method => :sum,
             :display_type => :text_positive_integer,
-            :order => 4
+            :order => 4,
+            :display => :false
           },
           :students_dg => {:column => :monthlyreport_totalStudentInDG,
             :label => "Growing Disciples",
@@ -468,7 +471,8 @@
             :lnz_correspondance => {:semester_report => :semesterreport_lnz_totalStudentInDG,
                                     :annual_report => :annualReport_lnz_totalStudentInDG},
             :display_type => :text_positive_integer,
-            :order => 6
+            :order => 6,
+            :display => :false
           },
           :ministering_disciples => {:column => :monthlyreport_ministering_disciples,
             :label => "Ministering Disciples",
@@ -478,7 +482,8 @@
             :lnz_correspondance => {:semester_report => :semesterreport_lnz_ministering_disciples,
                                     :annual_report => :annualReport_lnz_ministering_disciples},
             :display_type => :text_positive_integer,
-            :order => 7
+            :order => 7,
+            :display => :false
           },
           :spirit_mult => {:column => :monthlyreport_totalSpMult,
             :label => "Multiplying Disciples",
@@ -488,7 +493,8 @@
             :lnz_correspondance => {:semester_report => :semesterreport_lnz_totalSpMult,
                                     :annual_report => :annualReport_lnz_totalSpMult},
             :display_type => :text_positive_integer,
-            :order => 8
+            :order => 8,
+            :display => :false
           },
           :avg_hours_prayer => {:column => :monthlyreport_avgPrayer,
             :label => "Average - weekly hours of prayer",
@@ -796,7 +802,7 @@
       :event_status_completed => "Completed",
       :male => "Male",
       :female => "Female",
-      :first_year => {:en => "1st Year (Undergrad)", :fr => "1ère année (1er cycle)"},
+      :first_year => {:en => "1st Year", :fr => "1ère année"},
       :c4c_events_link => "http://p2c.eventbrite.com/",
       :num_days_to_display_event_after_completed => 10,
       :num_days_until_event_closed_after_completed => 6,
