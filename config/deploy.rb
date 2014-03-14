@@ -27,11 +27,11 @@ task :production do
 end
 
 task :staging do
-  role :app, 'emu.powertochange.com'
+  role :app, '192.237.176.145'
   set :rails_env, 'staging'
-  set :application, 'emu'
+  set :application, 'pulse'
   set :branch, 'staging'
-  set :deploy_to, '/var/www/emu.powertochange.com'
+  set :deploy_to, '/var/www/stagepulse.p2c.com'
 end
 
 before :"deploy:create_symlink", :"deploy:before_symlink"
