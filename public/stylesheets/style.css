@@ -594,10 +594,10 @@ a.active #groupsTab, #groupsTab:hover { background-position: -4px -700px; }
 .tablist #groupsTab:hover, .tablist a.active #groupsTab { background-position: -10px -700px; }
 .tablist #groupsTab { background-position: -10px -256px; }
 
-#discoverTab                              { background-image: none; }
-a.active #discoverTab, #discoverTab:hover {  }
-.tablist #discoverTab:hover, .tablist a.active #discoverTab {  }
-.tablist #discoverTab { padding-left: 10px; }
+#discoverTab                              { background-image: url("/images/sprites/p2c_icons.png"); background-repeat: no-repeat;  background-position: 2px -393px; }
+a.active #discoverTab, #discoverTab:hover { background-position: 2px -837px; }
+.tablist #discoverTab:hover, .tablist a.active #discoverTab { background-position: -2px -837px; }
+.tablist #discoverTab { background-position: -2px -393px; }
 
 #campusDiscTab                            { background-image: url("/images/sprites/p2c_icons.png"); background-repeat: no-repeat;  background-position: -6px -86px; }
 a.active #campusDiscTab, #campusDiscTab:hover { background-position: -6px -530px; }
