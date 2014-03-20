@@ -8,7 +8,7 @@ cas_logger.level = Logger::DEBUG
 CASClient::Frameworks::Rails::Filter.configure(
     :cas_base_url  => "https://thekey.me/cas/",
     :login_url     => "https://thekey.me/cas/login",
-    :logout_url    => "https://thekey.me/cas/logout",
+    :logout_url    => "https://thekey.me/cas/logout?service=http://p2c.com/students",
     :validate_url  => "https://thekey.me/cas/proxyValidate",    
     :proxy_retrieval_url => "https://pulse.p2c.com/cas_proxy_callback/retrieve_pgt",
     :proxy_callback_url => "https://pulse.p2c.com/cas_proxy_callback/receive_pgt",
