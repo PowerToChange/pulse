@@ -76,10 +76,11 @@ unless @mobile
 
       <div class="col3">
 
+        <%= link_to 'Connect Data Input', 'https://hub.p2c.com/node/10' %>
+
         <% if authorized?(:index, :survey_contacts) %>
           <div class="dashmodule">
             <div class="modulecontent">
-              <p><%= link_to 'Connect Data Input', 'https://hub.p2c.com/node/10' %></p>
               <%= link_to image_tag("CRM_ConnectButton.jpg"), "https://connect.p2c.com/sessions" %>
             </div>
             <br>
