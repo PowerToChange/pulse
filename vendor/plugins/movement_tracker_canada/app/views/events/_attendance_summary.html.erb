@@ -2,8 +2,11 @@
 <table class="statsTable">
 
   <% if @missing_attendees %>
+    <!--
     WARNING: There appears to be <%= @eb_event.num_attendee_rows %> total attendees to this event but some attendees cannot be reported on.<br/>
     This can happen if certain info is missing within Eventbrite, e.g. an attendee does not have a campus.
+    -->
+    sorry, this feature is not working.  Talk to your local staff who has Eventbrite access if you need to know.  The Facebook event is probably more up to date :(
     <br/>
     <br/>
   <% end %>
@@ -42,7 +45,7 @@
   </tr>
 
   <% else %>
-      There are no registered attendees from your campuses yet.
+    <!--There are no registered attendees from your campuses yet.-->
   <% end %>
 
 </table>
