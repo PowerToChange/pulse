@@ -388,7 +388,8 @@ class EventsController < ApplicationController
         @report_description = NO_ATTENDEES_EXCEPTION
         @results_partial = "error"
       elsif e.message == NO_ATTENDEES_AT_CAMPUS_EXCEPTION
-        @report_description = "#{NO_ATTENDEES_AT_CAMPUS_EXCEPTION} #{@selected_campus.desc}."
+        #@report_description = "#{NO_ATTENDEES_AT_CAMPUS_EXCEPTION} #{@selected_campus.desc}."
+        @report_description = "sorry, this feature is not working.  Talk to your local staff who has Eventbrite access if you need to know.  The Facebook event is probably more up to date :("
         @results_partial = "error"
       else
         setup_error_rescue
